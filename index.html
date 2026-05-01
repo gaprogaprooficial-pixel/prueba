@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorpX | Web Profesional</title>
+    
+    <!-- Estilos -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background: #f4f7f6; scroll-behavior: smooth; }
+        
+        /* Navegación */
+        header { background: #fff; padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #2d3436; }
+        .logo span { color: #0984e3; }
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: #2d3436; text-decoration: none; font-weight: 500; }
+
+        /* Sección de Usuario / Login */
+        .user-section { display: flex; align-items: center; gap: 10px; }
+        .btn-google { background: #4285F4; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .btn-google:hover { background: #357ae8; }
+        .user-info { display: none; align-items: center; gap: 10px; }
+        .user-info img { width: 35px; border-radius: 50%; }
+
+        /* Contenido */
+        .hero { height: 50vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1350&q=80'); background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; margin-top: 60px; }
+        
+        section { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+        .map-container { height: 400px; border-radius: 15px; overflow: hidden; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .work-section { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 40px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .btn-submit { background: #00b894; color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
+
+        footer { background: #2d3436; color: white; padding: 20px; text-align: center; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">CORP<span>X</span></div>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#contacto">Ubicación</a></li>
+                <li class="user-section">
+                    <!-- Botón de Login -->
+                    <button id="loginBtn" class="btn-google">
+                        Login con Google
+                    </button>
+                    <!-- Información del usuario logueado -->
+                    <div id="userInfo" class="user-info">
+                        <img id="userPhoto" src="" alt="User">
+                        <span id="userName"></span>
+                        <a href="#" id="logoutBtn" style="font-size: 0.8rem; color: #e74c3c;">Salir</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero" style="max-width: 100%;">
+        <h1>Tu Futuro Profesional</h1>
+        <p>Inicia sesión para postularte a nuestras vacantes.</p>
+    </section>
+
+    <section id="contacto">
+        <h2>Nuestra Ubicación</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15666.524451006526!2d-74.806654!3d11.0021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDAwJzA3LjYiTiA3NMKwNDgnMjQuMCJX!5e0!3m2!1ses!2sco!4v1620000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <section id="unete">
+        <div class="work-section">
+            <h2>Solicitar Trabajo</h2>
+            <form id="workForm">
+                <div class="form-group">
+                    <input type="text" id="formName" placeholder="Nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="formEmail" placeholder="Tu correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Cuéntanos sobre tu experiencia"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Solicitud</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 CorpX Negocios</p>
+    </footer>
+
+    <!-- Firebase SDK (Módulos necesarios) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // CONFIGURACIÓN DE FIREBASE (Debes reemplazar esto con tus datos)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            projectId: "TU_PROYECTO_ID",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Elementos del DOM
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userInfo = document.getElementById('userInfo');
+        const userName = document.getElementById('userName');
+        const userPhoto = document.getElementById('userPhoto');
+        const formName = document.getElementById('formName');
+        const formEmail = document.getElementById('formEmail');
+
+        // Función para Iniciar Sesión
+        loginBtn.addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    console.log("Usuario logueado");
+                }).catch((error) => {
+                    console.error("Error en login:", error);
+                });
+        });
+
+        // Función para Cerrar Sesión
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth);
+        });
+
+        // Observador de estado de autenticación
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Usuario está dentro
+                loginBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.innerText = user.displayName;
+                userPhoto.src = user.photoURL;
+                
+                // Autorrellenar formulario de trabajo
+                formName.value = user.displayName;
+                formEmail.value = user.email;
+            } else {
+                // Usuario está fuera
+                loginBtn.style.display = 'flex';
+                userInfo.style.display = 'none';
+                formName.value = '';
+                formEmail.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
