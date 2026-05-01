@@ -3,41 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CorpX | Web Profesional</title>
+    <title>CorpX Ultra | Enterprise Portal</title>
     
-    <!-- Estilos -->
+    <!-- Fuentes y Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background: #f4f7f6; scroll-behavior: smooth; }
-        
-        /* Navegación */
-        header { background: #fff; padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #2d3436; }
-        .logo span { color: #0984e3; }
-        nav ul { display: flex; list-style: none; align-items: center; }
-        nav ul li { margin-left: 20px; }
-        nav ul li a { color: #2d3436; text-decoration: none; font-weight: 500; }
 
-        /* Sección de Usuario / Login */
-        .user-section { display: flex; align-items: center; gap: 10px; }
-        .btn-google { background: #4285F4; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .btn-google:hover { background: #357ae8; }
-        .user-info { display: none; align-items: center; gap: 10px; }
-        .user-info img { width: 35px; border-radius: 50%; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-        /* Contenido */
-        .hero { height: 50vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1350&q=80'); background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; margin-top: 60px; }
-        
-        section { max-width: 1100px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-        .map-container { height: 400px; border-radius: 15px; overflow: hidden; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
-        .work-section { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 40px; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-        .btn-submit { background: #00b894; color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        /* --- NAVEGACIÓN AVANZADA --- */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
 
-        footer { background: #2d3436; color: white; padding: 20px; text-align: center; margin-top: 40px; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+
+        .auth-controls { display: flex; align-items: center; gap: 15px; }
+
+        .btn-google {
+            background: white;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-google:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
+
+        .profile-chip {
+            display: none;
+            background: var(--card-bg);
+            padding: 5px 15px 5px 5px;
+            border-radius: 50px;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile-chip img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 180px 20px 100px;
+            text-align: center;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent);
+        }
+
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; background: linear-gradient(to right, #fff, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; color: #94a3b8; max-width: 700px; margin: 0 auto 30px; }
+
+        /* --- GRID DE SERVICIOS (Glassmorphism) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.4s;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-10px);
+        }
+
+        /* --- SECCIÓN DE MAPA --- */
+        .map-section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .map-frame {
+            width: 100%;
+            height: 500px;
+            border-radius: 30px;
+            filter: grayscale(1) invert(0.9) contrast(1.2); /* Estilo Dark Map */
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- FORMULARIO DE TRABAJO --- */
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        input:focus { border-color: var(--primary); }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:disabled { background: #334155; cursor: not-allowed; }
+
+        /* --- FOOTER --- */
+        footer { padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: #64748b; }
+
+        /* Bloqueo de acceso */
+        .locked-overlay {
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 2px dashed rgba(255,255,255,0.1);
+        }
     </style>
 </head>
 <body>
@@ -45,65 +181,85 @@
     <header>
         <nav>
             <div class="logo">CORP<span>X</span></div>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#contacto">Ubicación</a></li>
-                <li class="user-section">
-                    <!-- Botón de Login -->
-                    <button id="loginBtn" class="btn-google">
-                        Login con Google
-                    </button>
-                    <!-- Información del usuario logueado -->
-                    <div id="userInfo" class="user-info">
-                        <img id="userPhoto" src="" alt="User">
-                        <span id="userName"></span>
-                        <a href="#" id="logoutBtn" style="font-size: 0.8rem; color: #e74c3c;">Salir</a>
-                    </div>
-                </li>
-            </ul>
+            <div class="auth-controls">
+                <button id="loginBtn" class="btn-google">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+                    Acceso Corporativo
+                </button>
+                <div id="userProfile" class="profile-chip">
+                    <img id="userImg" src="">
+                    <span id="userName"></span>
+                    <i class="fas fa-sign-out-alt" id="logoutBtn" style="cursor:pointer; margin-left:10px;"></i>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <section id="inicio" class="hero" style="max-width: 100%;">
-        <h1>Tu Futuro Profesional</h1>
-        <p>Inicia sesión para postularte a nuestras vacantes.</p>
-    </section>
+    <main>
+        <section class="hero">
+            <h1>Expertos en Escalar Negocios</h1>
+            <p>Fusionamos tecnología de vanguardia con talento humano de clase mundial. Inicia sesión para explorar oportunidades de carrera.</p>
+        </section>
 
-    <section id="contacto">
-        <h2>Nuestra Ubicación</h2>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15666.524451006526!2d-74.806654!3d11.0021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDAwJzA3LjYiTiA3NMKwNDgnMjQuMCJX!5e0!3m2!1ses!2sco!4v1620000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
+        <section class="services-grid">
+            <div class="service-card">
+                <h3>Cloud Architecture</h3>
+                <p>Infraestructura escalable en AWS y Google Cloud para alta demanda.</p>
+            </div>
+            <div class="service-card">
+                <h3>AI Integration</h3>
+                <p>Implementamos modelos de lenguaje avanzados para optimizar flujos.</p>
+            </div>
+            <div class="service-card">
+                <h3>Cyber Security</h3>
+                <p>Protección perimetral y auditorías de seguridad constantes.</p>
+            </div>
+        </section>
 
-    <section id="unete">
-        <div class="work-section">
-            <h2>Solicitar Trabajo</h2>
-            <form id="workForm">
-                <div class="form-group">
-                    <input type="text" id="formName" placeholder="Nombre completo" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="formEmail" placeholder="Tu correo electrónico" required>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Cuéntanos sobre tu experiencia"></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Enviar Solicitud</button>
-            </form>
-        </div>
-    </section>
+        <section class="map-section">
+            <h2 style="margin-bottom: 40px; text-align: center;">Presencia Global</h2>
+            <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15666.52!2d-74.80!3d11.00!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDAwJzEwLjEiTiA3NMKwNDgnMzIuMyJX!5e0!3m2!1ses!2sco!4v1620000000000"></iframe>
+        </section>
+
+        <section id="vacantes" class="form-container">
+            <div id="unauthenticatedView" class="locked-overlay">
+                <h3>🔒 Sección Restringida</h3>
+                <p>Debes autenticarte con tu cuenta de Google para postularte a una vacante.</p>
+            </div>
+
+            <div id="authenticatedView" style="display: none;">
+                <h2 style="margin-bottom: 20px;">Formulario de Postulación</h2>
+                <form id="applicationForm">
+                    <label>Puesto al que aplica</label>
+                    <select id="role">
+                        <option>Senior Developer</option>
+                        <option>Product Manager</option>
+                        <option>UX/UI Designer</option>
+                    </select>
+                    
+                    <label>Tu Perfil (LinkedIn / Portfolio)</label>
+                    <input type="url" id="portfolio" placeholder="https://..." required>
+                    
+                    <label>¿Por qué deberíamos contratarte?</label>
+                    <textarea id="reason" rows="5" required></textarea>
+                    
+                    <button type="submit" class="btn-submit" id="submitBtn">Enviar Postulación Técnica</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 CorpX Negocios</p>
+        <p>&copy; 2026 CorpX Technologies. All rights reserved.</p>
     </footer>
 
-    <!-- Firebase SDK (Módulos necesarios) -->
+    <!-- Firebase SDK (Version Modular) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIGURACIÓN DE FIREBASE (Debes reemplazar esto con tus datos)
+        // CONFIGURACIÓN (Reemplazar con tus credenciales de Firebase)
         const firebaseConfig = {
             apiKey: "TU_API_KEY",
             authDomain: "TU_PROYECTO.firebaseapp.com",
@@ -113,56 +269,67 @@
             appId: "TU_APP_ID"
         };
 
-        // Inicializar Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Elementos del DOM
+        // UI Elements
         const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
-        const userInfo = document.getElementById('userInfo');
-        const userName = document.getElementById('userName');
-        const userPhoto = document.getElementById('userPhoto');
-        const formName = document.getElementById('formName');
-        const formEmail = document.getElementById('formEmail');
+        const userProfile = document.getElementById('userProfile');
+        const unauthView = document.getElementById('unauthenticatedView');
+        const authView = document.getElementById('authenticatedView');
 
-        // Función para Iniciar Sesión
-        loginBtn.addEventListener('click', () => {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    console.log("Usuario logueado");
-                }).catch((error) => {
-                    console.error("Error en login:", error);
-                });
-        });
-
-        // Función para Cerrar Sesión
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            signOut(auth);
-        });
-
-        // Observador de estado de autenticación
+        // Logic: Auth Observer
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Usuario está dentro
                 loginBtn.style.display = 'none';
-                userInfo.style.display = 'flex';
-                userName.innerText = user.displayName;
-                userPhoto.src = user.photoURL;
-                
-                // Autorrellenar formulario de trabajo
-                formName.value = user.displayName;
-                formEmail.value = user.email;
+                userProfile.style.display = 'flex';
+                unauthView.style.display = 'none';
+                authView.style.display = 'block';
+                document.getElementById('userName').innerText = user.displayName.split(' ')[0];
+                document.getElementById('userImg').src = user.photoURL;
             } else {
-                // Usuario está fuera
                 loginBtn.style.display = 'flex';
-                userInfo.style.display = 'none';
-                formName.value = '';
-                formEmail.value = '';
+                userProfile.style.display = 'none';
+                unauthView.style.display = 'block';
+                authView.style.display = 'none';
             }
         });
+
+        // Event: Login
+        loginBtn.onclick = () => signInWithPopup(auth, provider);
+        
+        // Event: Logout
+        logoutBtn.onclick = () => signOut(auth);
+
+        // Event: Form Submit (Firestore Integration)
+        document.getElementById('applicationForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            try {
+                await addDoc(collection(db, "postulaciones"), {
+                    nombre: auth.currentUser.displayName,
+                    email: auth.currentUser.email,
+                    puesto: document.getElementById('role').value,
+                    link: document.getElementById('portfolio').value,
+                    mensaje: document.getElementById('reason').value,
+                    fecha: new Date()
+                });
+                alert("¡Postulación enviada con éxito!");
+                document.getElementById('applicationForm').reset();
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un error al guardar los datos.");
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Enviar Postulación Técnica";
+            }
+        };
     </script>
 </body>
 </html>
